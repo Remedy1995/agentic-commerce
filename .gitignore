@@ -1,0 +1,8 @@
+node_modules
+dist
+frontend/node_modules
+frontend/.next
+frontend/out
+.env
+.claude
+.DS_Store

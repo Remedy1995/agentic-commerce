@@ -1,0 +1,35 @@
+{
+  "name": "nanabanana-commerce",
+  "version": "1.0.0",
+  "description": "Agentic image marketplace on ARC — buy Nano Banana 2 AI generations with Circle Nanopayments",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tsc && cd frontend && npm run build",
+    "start": "node dist/server/index.js",
+    "dev": "ts-node src/server/index.ts",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all": "npm install && cd frontend && npm install",
+    "agent": "ts-node src/agent/index.ts",
+    "demo": "ts-node scripts/demo.ts",
+    "setup-wallet": "ts-node scripts/setupWallet.ts"
+  },
+  "dependencies": {
+    "@circle-fin/developer-controlled-wallets": "^4.0.0",
+    "@circle-fin/x402-batching": "^1.0.0",
+    "@google/genai": "^0.7.0",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "uuid": "^10.0.0",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.0",
+    "@types/uuid": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
