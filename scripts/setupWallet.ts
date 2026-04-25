@@ -20,7 +20,8 @@ import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import axios from "axios";
 
 const CIRCLE_API_KEY = process.env.CIRCLE_API_KEY!;
-const ARC_CHAIN = "ARC-TESTNET";
+// ARC Testnet is not yet in Circle's Blockchain enum — cast as any
+const ARC_CHAIN = "ARC-TESTNET" as any;
 
 async function main() {
   if (!CIRCLE_API_KEY || !process.env.CIRCLE_WALLET_SET_ID) {

@@ -21,7 +21,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const CIRCLE_API_KEY = process.env.CIRCLE_API_KEY!;
-const ARC_CHAIN = "ARC-TESTNET";
+// ARC Testnet is not yet in Circle's Blockchain enum — cast as any
+const ARC_CHAIN = "ARC-TESTNET" as any;
 
 // ── Merchant wallet (Circle Developer-Controlled Wallets) ─────────────────────
 

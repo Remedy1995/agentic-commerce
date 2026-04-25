@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { getCircleClient, drip } from "../services/circle";
+import { getDCWClient, drip } from "../services/circle";
 
 const router = Router();
 
@@ -13,7 +13,7 @@ router.get("/balance", async (req: Request, res: Response) => {
   }
 
   try {
-    const client = getCircleClient();
+    const client = getDCWClient();
     const response = await client.getWalletTokenBalance({ id: walletId });
     const balances = response.data?.tokenBalances ?? [];
     res.json({ walletId, balances });
