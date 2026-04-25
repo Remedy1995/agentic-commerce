@@ -194,38 +194,46 @@ This runs 55 autonomous purchases in batches of 3, each paying $0.001 USDC via E
 
 ---
 
-## Deploying to Railway (Backend + Frontend)
+## Deploying the Entire System on Railway (Recommended)
 
-Railway runs the Express server which also serves the statically-exported Next.js frontend from `frontend/out/`.
+Railway runs the Express server which also serves the statically-exported Next.js frontend from `frontend/out/`. This means **one Railway service = full stack** — no Vercel needed.
 
-### 1. Build the production assets locally first to verify
+### Why it works as a single service
 
-```bash
-npm run build
-```
+- `npm run build` does two things in sequence:
+  - `tsc` — compiles TypeScript to `dist/`
+  - `cd frontend && npm run build` — exports Next.js as static HTML/CSS/JS to `frontend/out/`
+- `npm start` runs the Express server, which:
+  - Serves the Next.js static files from `frontend/out/` at `/`
+  - Serves all API routes at `/api/*`
+  - Everything on one port, one public URL
 
-This compiles TypeScript (`dist/`) and exports Next.js (`frontend/out/`).
-
-### 2. Push to GitHub (see section below)
-
-### 3. Deploy on Railway
+### Deploy steps
 
 1. Go to [railway.app](https://railway.app) and sign in with GitHub
 2. Click **New Project** → **Deploy from GitHub repo**
 3. Select `Remedy1995/agentic-commerce`
-4. Railway auto-detects `package.json`
-5. In **Settings → Build Command**, set:
+4. Railway auto-detects `package.json`. In **Settings**, confirm:
+   - **Build Command:** `npm run build`
+   - **Start Command:** `npm start`
+5. Go to **Variables** and add all your environment variables:
    ```
-   npm run build
+   GEMINI_API_KEY=...
+   CIRCLE_API_KEY=...
+   CIRCLE_ENTITY_SECRET=...
+   CIRCLE_WALLET_SET_ID=...
+   MERCHANT_WALLET_ADDRESS=...
+   AGENT_PRIVATE_KEY=...
+   AGENT_WALLET_ADDRESS=...
+   PRICE_PER_GENERATION=0.001
+   ARC_RPC_URL=https://rpc.testnet.arc.network
+   ARC_CHAIN_ID=5042002
+   USDC_CONTRACT_ADDRESS=0x3600000000000000000000000000000000000000
    ```
-6. In **Settings → Start Command**, set:
-   ```
-   npm start
-   ```
-7. Go to **Variables** and add every key from your `.env` file (all values — do not commit `.env`)
-8. Railway will generate a public URL like `https://your-app.up.railway.app`
+   > Do NOT set `PORT` — Railway injects it automatically.
+6. Click **Deploy**
 
-> The server listens on `process.env.PORT` — Railway sets this automatically.
+Railway generates a public URL like `https://your-app.up.railway.app` — use this as your hackathon submission URL. Both the UI and API are served from it.
 
 ---
 
